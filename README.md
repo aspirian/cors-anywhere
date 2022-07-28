@@ -23,6 +23,7 @@ var port = process.env.PORT || 8080;
 var cors_proxy = require('cors-anywhere');
 cors_proxy.createServer({
     originWhitelist: [], // Allow all origins
+    targetWhiteList: [], // Allow only specific targets
     requireHeader: ['origin', 'x-requested-with'],
     removeHeaders: ['cookie', 'cookie2']
 }).listen(port, host, function() {
@@ -97,6 +98,9 @@ proxy requests. The following options are supported:
   Example: `['https://bad.example.com', 'http://bad.example.com']`
 * array of strings `originWhitelist` - If set, requests whose origin is not listed are blocked.  
   If this list is empty, all origins are allowed.
+  Example: `['https://good.example.com', 'http://good.example.com']`
+* array of strings `targetWhiteList` - If set, requests whose target is not listed are blocked.  
+  If this list is empty, all targets are allowed.
   Example: `['https://good.example.com', 'http://good.example.com']`
 * function `handleInitialRequest` - If set, it is called with the request, response and a parsed
   URL of the requested destination (null if unavailable). If the function returns true, the request
